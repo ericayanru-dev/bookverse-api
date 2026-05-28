@@ -1,6 +1,8 @@
 # Lock down critical governance files
-.github/workflows/restrict-main.yml @ericayanru-dev @alexanderbredee
-.github/CODEOWNERS @ericayanru-dev @alexanderbredee
+# Critical files
+.github/workflows/          @ericayanru-dev
+README.md                   @ericayanru-dev
+CONTRIBUTING.md             @ericayanru-dev
 
 # Default rule for all other files
 * @ericayanru-dev @alexanderbredee
