@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Lock down critical governance files
 # Critical files
 .github/workflows/          @ericayanru-dev
@@ -6,3 +7,6 @@ CONTRIBUTING.md             @ericayanru-dev
 
 # Default rule for all other files
 * @ericayanru-dev @alexanderbredee
+=======
+* @ericayanru-dev
+>>>>>>> 18adbcb (Resolve conflict: keep CODEOWNERS file)

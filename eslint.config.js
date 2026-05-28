@@ -1,17 +1,17 @@
-const js = require('@eslint/js');
-const globals = require('globals');
-const prettierRecommended = require('eslint-plugin-prettier/recommended');
+const js = require("@eslint/js");
+const globals = require("globals");
+const prettierRecommended = require("eslint-plugin-prettier/recommended");
 
 module.exports = [
   js.configs.recommended,
   prettierRecommended,
 
   {
-    files: ['**/*.js'],
+    files: ["**/*.js"],
 
     languageOptions: {
       ecmaVersion: 2021,
-      sourceType: 'script',
+      sourceType: "script",
       globals: {
         ...globals.node,
         ...globals.es2021,
@@ -19,13 +19,13 @@ module.exports = [
     },
 
     rules: {
-      'no-unused-vars': 'warn',
-      'no-console': 'off',
+      "no-unused-vars": "warn",
+      "no-console": "off",
       // Do NOT define prettier rules here → let .prettierrc handle them
     },
   },
 
   {
-    ignores: ['node_modules/**', 'dist/**', '.github/**'],
+    ignores: ["node_modules/**", "dist/**", ".github/**"],
   },
 ];
