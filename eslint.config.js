@@ -14,7 +14,7 @@ module.exports = [
       sourceType: "script",
       globals: {
         ...globals.node,
-        ...globals.es2021,
+  
       },
     },
 
