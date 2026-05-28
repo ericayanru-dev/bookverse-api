@@ -1,5 +1,15 @@
 # Contributing Guide - BookVerse API
 
+Team
+DevOps & Project Core Track:
+
+Alexander Bredee Holden
+Eric Ayanru  (Lead)
+Favour Precious Efeire Igein
+
+License
+This project is for academic purposes (CSE 341).
+
 ## Branch Strategy
 
 We follow a strict Git branching strategy to maintain code quality:
@@ -34,4 +44,7 @@ Use conventional commits:
 *docs*: documentation
 *refactor*: code improvement
 
-Example: feat(books): add CRUD routes
+Example:
+feat(books): implement CRUD operations
+fix(auth): correct JWT validation middleware
+chore(setup): add morgan logging
