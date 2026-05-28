@@ -1,0 +1,19 @@
+name: Restrict Main Merges
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-source-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail if source branch is not develop
+        run: |
+          if [ "${{ github.head_ref }}" != "develop" ]; then
+            echo " Pull requests into main must come from develop."
+            exit 1
+          else
+            echo " Source branch is develop, check passed."
+          fi
