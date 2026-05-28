@@ -1,6 +1,11 @@
-# Lock down critical governance files
-.github/workflows/restrict-main.yml @ericayanru-dev @alexanderbredee
-.github/CODEOWNERS @ericayanru-dev @alexanderbredee
+# BookVerse API - CODEOWNERS
 
-# Default rule for all other files
+# Critical files owned by DevOps Lead
+.github/workflows/          @ericayanru-dev
+README.md                   @ericayanru-dev
+CONTRIBUTING.md             @ericayanru-dev
+eslint.config.js            @ericayanru-dev
+.prettierrc                 @ericayanru-dev
+
+# All other files - Require review from leads
 * @ericayanru-dev @alexanderbredee
