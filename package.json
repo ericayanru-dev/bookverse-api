@@ -7,7 +7,7 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "lint": "eslint src/ --config src/eslint.config.js --fix",
-    "lint:check": "eslint src/",
+    "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.js\"",
     "test": "jest --passWithNoTests",
     "swagger": "node src/swagger.js"
@@ -42,7 +42,7 @@
     "@babel/core": "^7.29.7",
     "@babel/preset-env": "^7.29.7",
     "@eslint/js": "^10.0.1",
-    "eslint": "^10.4.0",
+    "eslint": "^10.4.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.6",
     "globals": "^17.6.0",
