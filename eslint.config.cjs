@@ -1,8 +1,8 @@
-import js from "@eslint/js";
-import globals from "globals";
-import { defineConfig } from "eslint/config";
+const js = require("@eslint/js");
+const globals = require("globals");
+const prettierPlugin = require("eslint-plugin-prettier");
 
-export default defineConfig([
+module.exports = [
   {
     files: ["**/*.{js,mjs,cjs}"],
     languageOptions: {
@@ -14,7 +14,7 @@ export default defineConfig([
       },
     },
     plugins: {
-      prettier: require("eslint-plugin-prettier"),
+      prettier: prettierPlugin,
     },
     rules: {
       ...js.configs.recommended.rules,
@@ -35,4 +35,4 @@ export default defineConfig([
     files: ["**/*.js"],
     languageOptions: { sourceType: "commonjs" },
   },
-]);
+];
