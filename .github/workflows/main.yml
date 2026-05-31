@@ -26,8 +26,6 @@ jobs:
       - name: Run Linting
         run: npm run lint:check
 
-      - name: Run Tests
-        #run: npm test
 
   # Extra protection for main branch
   check-source:

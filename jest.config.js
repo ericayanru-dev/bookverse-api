@@ -3,5 +3,6 @@ module.exports = {
   verbose: true,
   collectCoverage: true,
   coverageDirectory: "coverage",
-  testMatch: ["**/__tests__/**/*.js", "**/?(*.)+(spec|test).js"]
-}
+  testMatch: ["**/__tests__/**/*.js", "**/?(*.)+(spec|test).js"],
+  
+};
