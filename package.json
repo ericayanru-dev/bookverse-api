@@ -1,7 +1,6 @@
 {
   "name": "bookverse-api",
   "version": "1.0.0",
-  "description": "",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
@@ -9,19 +8,11 @@
     "lint": "eslint src/ --fix",
     "lint:check": "eslint src/",
     "format": "prettier --write \"src/**/*.js\"",
-    "test": "jest --passWithNoTests",
     "swagger": "node src/swagger.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ericayanru-dev/bookverse-api.git"
   },
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/ericayanru-dev/bookverse-api/issues"
-  },
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
