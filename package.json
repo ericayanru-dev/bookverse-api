@@ -7,7 +7,7 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "lint": "eslint src/ --fix",
-    "lint:check": "eslint src/",
+    "lint:check": "eslint",
     "format": "prettier --write \"src/**/*.js\"",
     "test": "jest --passWithNoTests",
     "swagger": "node src/swagger.js"
