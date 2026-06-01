@@ -5,6 +5,21 @@ Backend API for an online bookstore built with Node.js, Express, and MongoDB.
 **Course**: CSE 341 - Final Project  
 **Team**: 13 Members
 
+Alexander Bredee Holden 
+Eric Ayanru
+Favour Precious Efeire Igein
+Gabriel Chagas Boff
+Lawrence Okon
+Mbuyazwe France Dube
+Mike Brignol
+Olanrewaju Ayomide Adebayo
+Robert Yamashita
+Pacheco Jorquera
+Rodrigo Alejandro Pacheco Jorquera
+Tyler Matthew Peterson
+Vinicius Lima Alves
+Wadzanai Murombedzi
+
 ---
 
 ## Overview
