@@ -107,4 +107,4 @@ This document describes all Mongoose schemas used in the BookVerse API.
 ---
 
 **Last Updated**: June 2026  
-**Maintained by**: DevOps & Project Core Track
+**Maintained by**: DevOps & Project Core Tracks
