@@ -84,11 +84,14 @@ npm run dev
 # Production
 npm start
 
+# formating
+npm lint 
+
 # Available Scripts
 JSON"scripts": {
   "start": "node src/server.js",
   "dev": "nodemon src/server.js",
-  "lint": "eslint src/",
+  "lint": "eslint src/ --fix",
   "test": "jest"
   "swagger": "src/swagger.js"
 }
