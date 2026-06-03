@@ -108,4 +108,4 @@ develop → Integration branch (protected)
 `bugfix/*` → Bug fixes
 `chore/*` → Maintenance & setup
 
-See CONTRIBUTING.md for full details.
+See CONTRIBUTING.md for full details. eric
