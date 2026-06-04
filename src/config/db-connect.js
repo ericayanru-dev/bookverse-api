@@ -7,7 +7,10 @@ const connectDB = async () => {
       console.log("MongoDB already connected");
       return db;
     }
-    db = await mongoose.connect(process.env.MONGO_URI);
+    db = await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     console.log("MongoDB connected successfully");
     return db;
   } catch (error) {
