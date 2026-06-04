@@ -85,7 +85,7 @@ npm run dev
 npm start
 
 # formating
-npm lint 
+npm run lint 
 
 # Available Scripts
 JSON"scripts": {
