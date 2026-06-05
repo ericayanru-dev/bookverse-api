@@ -23,10 +23,9 @@ app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-// API Routes (to be added later)
-app.use("/api/books", (req, res) => {
-  res.send({ message: "Books endpoint" });
-});
+// API Routes
+const booksRoutes = require("./routes/books.routes");
+app.use("/books", booksRoutes);
 app.use("/api/authors", (req, res) => {
   res.send({ message: "Authors endpoint" });
 });
