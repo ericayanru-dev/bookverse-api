@@ -1,7 +1,12 @@
 const { body, param } = require("express-validator");
 
-// Validate order data
-const orderValidationRules = () => {
+// GET /orders
+const getOrdersValidation = () => {
+  return [];
+};
+
+// POST /orders
+const createOrderValidation = () => {
   return [
     body("user")
       .notEmpty()
@@ -9,31 +14,62 @@ const orderValidationRules = () => {
       .isMongoId()
       .withMessage("Invalid user ID"),
 
-    body("books").isArray({ min: 1 }).withMessage("At least one book is required"),
+    body("items").isArray({ min: 1 }).withMessage("At least one order item is required"),
 
-    body("books.*.bookId").isMongoId().withMessage("Invalid book ID"),
-
-    body("books.*.quantity").isInt({ min: 1 }).withMessage("Quantity must be at least 1"),
-
-    body("totalPrice")
+    body("items.*.book")
       .notEmpty()
-      .withMessage("Total price is required")
+      .withMessage("Book ID is required")
+      .isMongoId()
+      .withMessage("Invalid book ID"),
+
+    body("items.*.quantity")
+      .notEmpty()
+      .withMessage("Quantity is required")
+      .isInt({ min: 1 })
+      .withMessage("Quantity must be at least 1"),
+
+    body("items.*.price")
+      .notEmpty()
+      .withMessage("Price is required")
       .isFloat({ min: 0 })
-      .withMessage("Total price must be a positive number"),
+      .withMessage("Price must be a positive number"),
+
+    body("totalAmount")
+      .notEmpty()
+      .withMessage("Total amount is required")
+      .isFloat({ min: 0 })
+      .withMessage("Total amount must be a positive number"),
 
     body("status")
       .optional()
       .isIn(["pending", "processing", "shipped", "delivered", "cancelled"])
       .withMessage("Invalid order status"),
+
+    body("shippingAddress.street").optional().isString().withMessage("Street must be text"),
+
+    body("shippingAddress.city").optional().isString().withMessage("City must be text"),
+
+    body("shippingAddress.state").optional().isString().withMessage("State must be text"),
+
+    body("shippingAddress.country").optional().isString().withMessage("Country must be text"),
+
+    body("shippingAddress.zipCode").optional().isString().withMessage("Zip code must be text"),
   ];
 };
 
-// Validate MongoDB order ID
-const validateOrderId = () => {
-  return [param("id").isMongoId().withMessage("Invalid order ID")];
+// DELETE /orders/:id
+const deleteOrderValidation = () => {
+  return [
+    param("id")
+      .notEmpty()
+      .withMessage("Order ID is required")
+      .isMongoId()
+      .withMessage("Invalid order ID"),
+  ];
 };
 
 module.exports = {
-  orderValidationRules,
-  validateOrderId,
+  getOrdersValidation,
+  createOrderValidation,
+  deleteOrderValidation,
 };
