@@ -1,8 +1,30 @@
-const { body, param } = require("express-validator");
+const { body, param, validationResult } = require("express-validator");
+
+// Middleware to run validation checks
+const validate = (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      success: false,
+      errors: errors.array(),
+    });
+  }
+
+  next();
+};
 
 // GET /orders
 const getOrdersValidation = () => {
-  return [];
+  return [
+    body("user")
+      .notEmpty()
+      .withMessage("User ID is required")
+      .isMongoId()
+      .withMessage("Invalid user ID"),
+
+    validate,
+  ];
 };
 
 // POST /orders
@@ -54,6 +76,8 @@ const createOrderValidation = () => {
     body("shippingAddress.country").optional().isString().withMessage("Country must be text"),
 
     body("shippingAddress.zipCode").optional().isString().withMessage("Zip code must be text"),
+
+    validate,
   ];
 };
 
@@ -65,6 +89,8 @@ const deleteOrderValidation = () => {
       .withMessage("Order ID is required")
       .isMongoId()
       .withMessage("Invalid order ID"),
+
+    validate,
   ];
 };
 
