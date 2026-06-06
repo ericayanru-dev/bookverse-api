@@ -15,7 +15,7 @@ const {
   createAuthorValidation,
   updateAuthorValidation,
   deleteAuthorValidation,
-} = require("../validators/authors-validations/author-validations");
+} = require("../middleware/validation/author-validations");
 
 // GET /authors
 router.get("/", getAuthorsValidation(), getAllAuthors);
