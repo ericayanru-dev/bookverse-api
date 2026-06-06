@@ -1,5 +1,4 @@
 const Book = require("../models/book");
-require("../models/author");
 
 const getAllBooks = async (req, res) => {
   try {

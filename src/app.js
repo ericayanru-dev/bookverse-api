@@ -5,6 +5,8 @@ const morgan = require("morgan");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger/swagger.json");
 
+const booksRoutes = require("./routes/books.routes");
+
 const app = express();
 
 // Security & Logging
@@ -24,7 +26,6 @@ app.get("/health", (req, res) => {
 });
 
 // API Routes
-const booksRoutes = require("./routes/books.routes");
 app.use("/books", booksRoutes);
 
 const authorsRoutes = require("./routes/authors.routes");
