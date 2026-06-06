@@ -5,8 +5,8 @@
  */
 
 const Order = require("../models/order");
-const User = require("../models/user");
-const Book = require("../models/book");
+require("../models/user");
+require("../models/book");
 
 const getOrders = async (req, res) => {
   try {
@@ -49,7 +49,7 @@ const createOrder = async (req, res) => {
       user: fallbackUser,
       items,
       totalAmount,
-      shippingAddress, 
+      shippingAddress,
       status: cleanStatus,
     });
 
