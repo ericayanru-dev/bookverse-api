@@ -11,10 +11,7 @@ const getAllAuthors = async (req, res) => {
 
 const getAuthorById = async (req, res) => {
   try {
-    const author = await Author.findById(req.params.id).populate(
-      "books",
-      "title isbn",
-    );
+    const author = await Author.findById(req.params.id).populate("books", "title isbn");
     if (!author) {
       return res.status(404).json({ message: "Author not found" });
     }

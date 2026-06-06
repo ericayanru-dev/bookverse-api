@@ -38,20 +38,11 @@ const createAuthorValidation = () => {
       .optional()
       .isISO8601()
       .withMessage("Birth date must be a valid date (YYYY-MM-DD)"),
-    body("nationality")
-      .optional()
-      .isString()
-      .withMessage("Nationality must be text"),
+    body("nationality").optional().isString().withMessage("Nationality must be text"),
     body("genres").optional().isArray().withMessage("Genres must be an array"),
-    body("genres.*")
-      .optional()
-      .isString()
-      .withMessage("Each genre must be a string"),
+    body("genres.*").optional().isString().withMessage("Each genre must be a string"),
     body("books").optional().isArray().withMessage("Books must be an array"),
-    body("books.*")
-      .optional()
-      .isMongoId()
-      .withMessage("Each book reference must be a valid ID"),
+    body("books.*").optional().isMongoId().withMessage("Each book reference must be a valid ID"),
     validate,
   ];
 };
@@ -64,30 +55,17 @@ const updateAuthorValidation = () => {
       .withMessage("Author ID is required")
       .isMongoId()
       .withMessage("Invalid author ID"),
-    body("name")
-      .optional()
-      .trim()
-      .notEmpty()
-      .withMessage("Name cannot be empty"),
+    body("name").optional().trim().notEmpty().withMessage("Name cannot be empty"),
     body("bio").optional().isString().withMessage("Bio must be text"),
     body("birthDate")
       .optional()
       .isISO8601()
       .withMessage("Birth date must be a valid date (YYYY-MM-DD)"),
-    body("nationality")
-      .optional()
-      .isString()
-      .withMessage("Nationality must be text"),
+    body("nationality").optional().isString().withMessage("Nationality must be text"),
     body("genres").optional().isArray().withMessage("Genres must be an array"),
-    body("genres.*")
-      .optional()
-      .isString()
-      .withMessage("Each genre must be a string"),
+    body("genres.*").optional().isString().withMessage("Each genre must be a string"),
     body("books").optional().isArray().withMessage("Books must be an array"),
-    body("books.*")
-      .optional()
-      .isMongoId()
-      .withMessage("Each book reference must be a valid ID"),
+    body("books.*").optional().isMongoId().withMessage("Each book reference must be a valid ID"),
     validate,
   ];
 };
