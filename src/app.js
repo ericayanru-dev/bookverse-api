@@ -29,9 +29,10 @@ app.use("/books", booksRoutes);
 app.use("/api/authors", (req, res) => {
   res.send({ message: "Authors endpoint" });
 });
-app.use("/api/orders", (req, res) => {
-  res.send({ message: "Orders endpoint" });
-});
+
+// Orders Routes
+const ordersRoutes = require("./routes/orders.routes");
+app.use("/api/orders", ordersRoutes);
 
 // Swagger Docs
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
