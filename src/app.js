@@ -26,6 +26,10 @@ app.get("/health", (req, res) => {
 // API Routes
 const booksRoutes = require("./routes/books.routes");
 app.use("/books", booksRoutes);
+
+const authorsRoutes = require("./routes/authors.routes");
+app.use("/api/authors", authorsRoutes);
+
 app.use("/api/authors", (req, res) => {
   res.send({ message: "Authors endpoint" });
 });
