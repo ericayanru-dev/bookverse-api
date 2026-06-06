@@ -1,6 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const {
+  getBooksValidation,
+  getBookByIdValidation,
+  createBookValidation,
+  updateBookValidation,
+  deleteBookValidation,
+} = require("../middleware/validation/book-validations");
+
+const {
   getAllBooks,
   getBookById,
   createBook,
@@ -8,10 +16,10 @@ const {
   deleteBook,
 } = require("../controllers/book-controllers");
 
-router.get("/", getAllBooks);
-router.get("/:id", getBookById);
-router.post("/", createBook);
-router.put("/:id", updateBook);
-router.delete("/:id", deleteBook);
+router.get("/", getBooksValidation(), getAllBooks);
+router.get("/:id", getBookByIdValidation(), getBookById);
+router.post("/", createBookValidation(), createBook);
+router.put("/:id", updateBookValidation(), updateBook);
+router.delete("/:id", deleteBookValidation(), deleteBook);
 
 module.exports = router;
