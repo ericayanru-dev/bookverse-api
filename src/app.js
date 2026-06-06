@@ -59,6 +59,10 @@ app.use("/api/books", ...productionOnly(verifyToken), (req, res) => {
   res.send({ message: "Books endpoint" });
 });
 app.use("/api/authors", ...productionOnly(verifyToken), (req, res) => {
+// API Routes
+const booksRoutes = require("./routes/books.routes");
+app.use("/books", booksRoutes);
+app.use("/api/authors", (req, res) => {
   res.send({ message: "Authors endpoint" });
 });
 // Orders require both: login and admin role.
