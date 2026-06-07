@@ -1,9 +1,3 @@
-/**
- * @file order-controllers.js
- * @description Controllers for handling Orders business logic.
- * Assigned to: Lawrence Okon
- */
-
 const Order = require("../models/order");
 require("../models/user");
 require("../models/book");
@@ -31,7 +25,7 @@ const getOrders = async (req, res) => {
 
 const createOrder = async (req, res) => {
   try {
-    const { user, items, totalAmount, shippingAddress, status } = req.body;
+    const { items, totalAmount, shippingAddress } = req.body;
 
     // Check if items array is missing or empty
     if (!items || !Array.isArray(items) || items.length === 0) {
@@ -41,12 +35,12 @@ const createOrder = async (req, res) => {
       });
     }
 
-    const fallbackUser = req.user ? req.user.id : user || "65f1a2b3c4d5e6f7a8b9c0d9";
-    const cleanStatus = status ? status.toLowerCase() : "pending";
+    const user = req.user.id;
+    const cleanStatus = "pending";
 
     // Create document in database matching the nested object requirements
     const newOrder = await Order.create({
-      user: fallbackUser,
+      user: user,
       items,
       totalAmount,
       shippingAddress,
