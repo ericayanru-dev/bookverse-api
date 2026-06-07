@@ -1,11 +1,12 @@
 const swaggerAutogen = require("swagger-autogen")();
+require("dotenv").config();
 
 const doc = {
   info: {
     title: "BookVerse API",
     description: "Description",
   },
-  host: "localhost:5000",
+  host: process.env.SWAGGER_HOST || "localhost:5000",
 };
 
 const outputFile = "./swagger/swagger.json";
