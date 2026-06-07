@@ -7,10 +7,7 @@ const connectDB = async () => {
       console.log("MongoDB already connected");
       return db;
     }
-    db = await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    db = await mongoose.connect(process.env.MONGO_URI);
     console.log("MongoDB connected successfully");
     return db;
   } catch (error) {
