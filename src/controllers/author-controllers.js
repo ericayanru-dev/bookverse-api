@@ -23,7 +23,18 @@ const getAuthorById = async (req, res) => {
 
 const createAuthor = async (req, res) => {
   try {
-    const author = new Author(req.body);
+    const { name, bio, birthDate, nationality, genres, books } = req.body;
+
+    const body = {};
+    if (name) body.name = name.trim();
+    if (bio) body.bio = bio.trim();
+    if (birthDate) body.birthDate = birthDate;
+    if (nationality) body.nationality = nationality.trim();
+    if (genres) body.genres = genres.map((g) => g.trim());
+    if (books) body.books = books;
+    body.updatedAt = Date.now();
+
+    const author = new Author(body);
     const savedAuthor = await author.save();
     res.status(201).json(savedAuthor);
   } catch (error) {
@@ -33,7 +44,18 @@ const createAuthor = async (req, res) => {
 
 const updateAuthor = async (req, res) => {
   try {
-    const author = await Author.findByIdAndUpdate(req.params.id, req.body, {
+    const { name, bio, birthDate, nationality, genres, books } = req.body;
+
+    const body = {};
+    if (name) body.name = name.trim();
+    if (bio) body.bio = bio.trim();
+    if (birthDate) body.birthDate = birthDate;
+    if (nationality) body.nationality = nationality.trim();
+    if (genres) body.genres = genres.map((g) => g.trim());
+    if (books) body.books = books;
+    body.updatedAt = Date.now();
+
+    const author = await Author.findByIdAndUpdate(req.params.id, body, {
       new: true,
       runValidators: true,
     });
