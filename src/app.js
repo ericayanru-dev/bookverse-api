@@ -9,11 +9,11 @@ const cookieParser = require("cookie-parser");
 const swaggerDocument = require("./swagger/swagger.json");
 const booksRoutes = require("./routes/books.routes");
 const authorsRoutes = require("./routes/authors.routes");
-const authRouter = require('./routes/auth-routes');
-const passport = require('./config/passport');
-const { verifyToken, requireAdmin } = require('./middleware/auth');
+const authRouter = require("./routes/auth-routes");
+const passport = require("./config/passport");
 const connectDB = require("./config/db-connect");
 
+connectDB();
 
 const app = express();
 app.enable("trust proxy"); // Enable if behind a proxy (e.g., Heroku, Nginx)
@@ -34,8 +34,6 @@ app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-
-
 // Private API
 //
 //    verifyToken is used for all routes
@@ -46,13 +44,11 @@ app.get("/health", (req, res) => {
 //  this skips verification if in-dev for those endpoints.
 //  We just add verifyToken & requireAdmin accordingly if
 
-
 // Swagger Docs
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-=======
+
 // API Routes
 app.use("/books", booksRoutes);
 app.use("/authors", authorsRoutes);
-
-
+app.use("/api/auth", authRouter);
 module.exports = app;

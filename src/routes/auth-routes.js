@@ -1,11 +1,9 @@
 const express = require("express");
 const passport = require("passport");
 const { verifyToken } = require("../middleware/auth");
-const { register, login, logout, getMe, googleCallback } = require('../controllers/authController');
-
+const { register, login, logout, getMe, googleCallback } = require("../controllers/authController");
 
 const router = express.Router();
-
 
 // POST /api/auth/register
 router.post("/register", register);
@@ -21,24 +19,22 @@ router.get(
   "/google",
   passport.authenticate("google", {
     scope: ["profile", "email"],
-    session: false
+    session: false,
   })
-)
+);
 router.get(
   "/google/callback",
   passport.authenticate("google", {
     failureRedirect: "/api/auth/google/failure",
-    session: false
+    session: false,
   }),
   googleCallback
-)
+);
 router.get("/google/failure", (req, res) => {
   res.status(401).json({
     success: false,
-    message: "Google authentication failed."
-  })
+    message: "Google authentication failed.",
+  });
 });
-
-
 
 module.exports = router;
