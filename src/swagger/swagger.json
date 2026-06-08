@@ -2,229 +2,333 @@
   "swagger": "2.0",
   "info": {
     "title": "BookVerse API",
-    "description": "BookVerse API documentation",
+    "description": "Description",
     "version": "1.0.0"
   },
-  "host": "localhost:5000",
-  "basePath": "/",
-  "schemes": ["http"],
+  
   "paths": {
     "/health": {
       "get": {
-        "tags": ["Health"],
-        "summary": "Health check",
-        "description": "Returns API health status",
+        "description": "",
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": { "type": "string" },
-                "timestamp": { "type": "string", "format": "date-time" }
-              }
-            }
+            "description": "OK"
           }
         }
       }
     },
-    "/books": {
+    "/books/": {
       "get": {
-        "tags": ["Books"],
-        "summary": "Get all books",
-        "description": "Returns a list of all books with populated author names",
+        "description": "",
         "responses": {
           "200": {
-            "description": "List of books",
-            "schema": {
-              "type": "array",
-              "items": { "$ref": "#/definitions/Book" }
-            }
+            "description": "OK"
           },
           "500": {
-            "description": "Server error",
-            "schema": { "$ref": "#/definitions/Error" }
+            "description": "Internal Server Error"
           }
         }
       },
       "post": {
-        "tags": ["Books"],
-        "summary": "Create a new book",
-        "description": "Creates a new book with the provided data",
+        "description": "",
         "parameters": [
           {
-            "in": "body",
             "name": "body",
-            "required": true,
-            "schema": { "$ref": "#/definitions/CreateBookInput" }
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "any"
+                },
+                "isbn": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "price": {
+                  "example": "any"
+                },
+                "stock": {
+                  "example": "any"
+                },
+                "genre": {
+                  "example": "any"
+                },
+                "author": {
+                  "example": "any"
+                },
+                "publishedYear": {
+                  "example": "any"
+                },
+                "coverImage": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
           "201": {
-            "description": "Book created",
-            "schema": { "$ref": "#/definitions/Book" }
+            "description": "Created"
           },
           "400": {
-            "description": "Validation error",
-            "schema": { "$ref": "#/definitions/Error" }
+            "description": "Bad Request"
           }
         }
       }
     },
     "/books/{id}": {
       "get": {
-        "tags": ["Books"],
-        "summary": "Get a book by ID",
-        "description": "Returns a single book by its MongoDB ID",
+        "description": "",
         "parameters": [
           {
-            "in": "path",
             "name": "id",
+            "in": "path",
             "required": true,
-            "type": "string",
-            "description": "MongoDB ObjectId of the book"
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "Book found",
-            "schema": { "$ref": "#/definitions/Book" }
+            "description": "OK"
           },
           "404": {
-            "description": "Book not found",
-            "schema": { "$ref": "#/definitions/Error" }
+            "description": "Not Found"
           },
           "500": {
-            "description": "Server error",
-            "schema": { "$ref": "#/definitions/Error" }
+            "description": "Internal Server Error"
           }
         }
       },
       "put": {
-        "tags": ["Books"],
-        "summary": "Update a book",
-        "description": "Updates a book's fields by its MongoDB ID",
+        "description": "",
         "parameters": [
           {
-            "in": "path",
             "name": "id",
+            "in": "path",
             "required": true,
-            "type": "string",
-            "description": "MongoDB ObjectId of the book"
+            "type": "string"
           },
           {
-            "in": "body",
             "name": "body",
-            "required": true,
-            "schema": { "$ref": "#/definitions/UpdateBookInput" }
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "any"
+                },
+                "isbn": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "price": {
+                  "example": "any"
+                },
+                "stock": {
+                  "example": "any"
+                },
+                "genre": {
+                  "example": "any"
+                },
+                "author": {
+                  "example": "any"
+                },
+                "publishedYear": {
+                  "example": "any"
+                },
+                "coverImage": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Book updated",
-            "schema": { "$ref": "#/definitions/Book" }
-          },
-          "404": {
-            "description": "Book not found",
-            "schema": { "$ref": "#/definitions/Error" }
+            "description": "OK"
           },
           "400": {
-            "description": "Validation error",
-            "schema": { "$ref": "#/definitions/Error" }
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       },
       "delete": {
-        "tags": ["Books"],
-        "summary": "Delete a book",
-        "description": "Deletes a book by its MongoDB ID",
+        "description": "",
         "parameters": [
           {
-            "in": "path",
             "name": "id",
+            "in": "path",
             "required": true,
-            "type": "string",
-            "description": "MongoDB ObjectId of the book"
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "Book deleted",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": { "type": "string" }
-              }
-            }
+            "description": "OK"
           },
           "404": {
-            "description": "Book not found",
-            "schema": { "$ref": "#/definitions/Error" }
+            "description": "Not Found"
           },
           "500": {
-            "description": "Server error",
-            "schema": { "$ref": "#/definitions/Error" }
+            "description": "Internal Server Error"
           }
         }
       }
-    }
-  },
-  "definitions": {
-    "Book": {
-      "type": "object",
-      "properties": {
-        "_id": { "type": "string", "description": "MongoDB ObjectId" },
-        "title": { "type": "string" },
-        "isbn": { "type": "string" },
-        "description": { "type": "string" },
-        "price": { "type": "number" },
-        "stock": { "type": "integer" },
-        "genre": { "type": "string" },
-        "author": {
-          "type": "object",
-          "properties": {
-            "_id": { "type": "string" },
-            "name": { "type": "string" }
+    },
+    "/authors/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
-        },
-        "publishedYear": { "type": "integer" },
-        "coverImage": { "type": "string" },
-        "createdAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "bio": {
+                  "example": "any"
+                },
+                "birthDate": {
+                  "example": "any"
+                },
+                "nationality": {
+                  "example": "any"
+                },
+                "genres": {
+                  "example": "any"
+                },
+                "books": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
       }
     },
-    "CreateBookInput": {
-      "type": "object",
-      "required": ["title", "isbn", "price", "author"],
-      "properties": {
-        "title": { "type": "string", "description": "Book title" },
-        "isbn": { "type": "string", "description": "Unique ISBN" },
-        "description": { "type": "string", "description": "Book description" },
-        "price": { "type": "number", "minimum": 0, "description": "Book price" },
-        "stock": { "type": "integer", "minimum": 0, "default": 0, "description": "Stock quantity" },
-        "genre": { "type": "string", "description": "Book genre" },
-        "author": { "type": "string", "description": "MongoDB ObjectId of the author" },
-        "publishedYear": { "type": "integer", "description": "Year of publication" },
-        "coverImage": { "type": "string", "description": "URL to cover image" }
-      }
-    },
-    "UpdateBookInput": {
-      "type": "object",
-      "properties": {
-        "title": { "type": "string" },
-        "isbn": { "type": "string" },
-        "description": { "type": "string" },
-        "price": { "type": "number", "minimum": 0 },
-        "stock": { "type": "integer", "minimum": 0 },
-        "genre": { "type": "string" },
-        "author": { "type": "string" },
-        "publishedYear": { "type": "integer" },
-        "coverImage": { "type": "string" }
-      }
-    },
-    "Error": {
-      "type": "object",
-      "properties": {
-        "message": { "type": "string" }
+    "/authors/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "bio": {
+                  "example": "any"
+                },
+                "birthDate": {
+                  "example": "any"
+                },
+                "nationality": {
+                  "example": "any"
+                },
+                "genres": {
+                  "example": "any"
+                },
+                "books": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
     }
   }

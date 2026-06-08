@@ -23,7 +23,23 @@ const getBookById = async (req, res) => {
 
 const createBook = async (req, res) => {
   try {
-    const book = new Book(req.body);
+    const { title, isbn, description, price, stock, genre, author, publishedYear, coverImage } =
+      req.body;
+
+    const body = {};
+
+    if (title) body.title = title.trim();
+    if (isbn) body.isbn = isbn.trim();
+    if (description) body.description = description.trim();
+    if (price) body.price = price;
+    if (stock) body.stock = stock;
+    if (genre) body.genre = genre.trim();
+    if (author) body.author = author;
+    if (publishedYear) body.publishedYear = publishedYear;
+    if (coverImage) body.coverImage = coverImage.trim();
+    body.updatedAt = Date.now();
+
+    const book = new Book(body);
     const savedBook = await book.save();
     res.status(201).json(savedBook);
   } catch (error) {
@@ -33,7 +49,23 @@ const createBook = async (req, res) => {
 
 const updateBook = async (req, res) => {
   try {
-    const book = await Book.findByIdAndUpdate(req.params.id, req.body, {
+    const { title, isbn, description, price, stock, genre, author, publishedYear, coverImage } =
+      req.body;
+
+    const body = {};
+
+    if (title) body.title = title.trim();
+    if (isbn) body.isbn = isbn.trim();
+    if (description) body.description = description.trim();
+    if (price) body.price = price;
+    if (stock) body.stock = stock;
+    if (genre) body.genre = genre.trim();
+    if (author) body.author = author;
+    if (publishedYear) body.publishedYear = publishedYear;
+    if (coverImage) body.coverImage = coverImage.trim();
+    body.updatedAt = Date.now();
+
+    const book = await Book.findByIdAndUpdate(req.params.id, body, {
       new: true,
       runValidators: true,
     });
