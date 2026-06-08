@@ -7,8 +7,10 @@ const swaggerDocument = require("./swagger/swagger.json");
 
 const booksRoutes = require("./routes/books.routes");
 const authorsRoutes = require("./routes/authors.routes");
+const ordersRoutes = require("./routes/orders.routes");
 
 const app = express();
+app.enable("trust proxy"); // Enable if behind a proxy (e.g., Heroku, Nginx)
 
 // Security & Logging
 app.use(helmet());
@@ -27,9 +29,6 @@ app.get("/health", (req, res) => {
 // API Routes
 app.use("/books", booksRoutes);
 app.use("/authors", authorsRoutes);
-
-app.use("/orders", (req, res) => {
-  res.send({ message: "Orders endpoint" });
-});
+app.use("/orders", ordersRoutes);
 
 module.exports = app;
