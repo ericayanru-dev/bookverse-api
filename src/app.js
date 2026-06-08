@@ -9,6 +9,7 @@ const cookieParser = require("cookie-parser");
 const swaggerDocument = require("./swagger/swagger.json");
 const booksRoutes = require("./routes/books.routes");
 const authorsRoutes = require("./routes/authors.routes");
+const ordersRoutes = require("./routes/orders.routes");
 const authRouter = require('./routes/auth-routes');
 const passport = require('./config/passport');
 const { verifyToken, requireAdmin } = require('./middleware/auth');
@@ -35,24 +36,13 @@ app.get("/health", (req, res) => {
 });
 
 
-
-// Private API
-//
-//    verifyToken is used for all routes
-//    requireAdmin is used as a second guard for
-//      any admin only endpoints (eg. /api/orders)
-//
-// Other endpoints aren't implemented for now,
-//  this skips verification if in-dev for those endpoints.
-//  We just add verifyToken & requireAdmin accordingly if
-
-
 // Swagger Docs
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 =======
 // API Routes
 app.use("/books", booksRoutes);
 app.use("/authors", authorsRoutes);
+app.use("/orders", ordersRoutes);
 
 
 module.exports = app;
