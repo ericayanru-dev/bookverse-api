@@ -9,10 +9,10 @@ const cookieParser = require("cookie-parser");
 const swaggerDocument = require("./swagger/swagger.json");
 const booksRoutes = require("./routes/books.routes");
 const authorsRoutes = require("./routes/authors.routes");
-const authRouter = require("./routes/auth-routes");
+const ordersRoutes = require("./routes/orders.routes");
 const passport = require("./config/passport");
 const connectDB = require("./config/db-connect");
-
+const authRoutes = require("./routes/auth-routes");
 connectDB();
 
 const app = express();
@@ -26,23 +26,10 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 app.use(passport.initialize()); // stateless
 
-// Swagger Docs
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
 // Health Check
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
 });
-
-// Private API
-//
-//    verifyToken is used for all routes
-//    requireAdmin is used as a second guard for
-//      any admin only endpoints (eg. /api/orders)
-//
-// Other endpoints aren't implemented for now,
-//  this skips verification if in-dev for those endpoints.
-//  We just add verifyToken & requireAdmin accordingly if
 
 // Swagger Docs
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
@@ -50,5 +37,6 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // API Routes
 app.use("/books", booksRoutes);
 app.use("/authors", authorsRoutes);
-app.use("/api/auth", authRouter);
+app.use("/orders", ordersRoutes);
+app.use("/api/auth", authRoutes);
 module.exports = app;
