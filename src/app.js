@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config();
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
@@ -7,6 +8,11 @@ const swaggerDocument = require("./swagger/swagger.json");
 
 const booksRoutes = require("./routes/books.routes");
 const authorsRoutes = require("./routes/authors.routes");
+
+const connectDB = require("./config/db-connect");
+
+// Connect to MongoDB
+connectDB();
 
 const app = express();
 app.enable("trust proxy"); // Enable if behind a proxy (e.g., Heroku, Nginx)
