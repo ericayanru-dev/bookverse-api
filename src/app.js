@@ -13,6 +13,7 @@ const ordersRoutes = require("./routes/orders.routes");
 const passport = require("./config/passport");
 const connectDB = require("./config/db-connect");
 const authRoutes = require("./routes/auth-routes");
+const usersRoutes = require("./routes/users.routes");
 connectDB();
 
 const app = express();
@@ -39,4 +40,5 @@ app.use("/books", booksRoutes);
 app.use("/authors", authorsRoutes);
 app.use("/orders", ordersRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/users", usersRoutes);
 module.exports = app;
