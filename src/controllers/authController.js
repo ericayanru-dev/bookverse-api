@@ -133,7 +133,7 @@ const login = async function (req, res) {
 
 // POST /api/auth/logout
 const logout = function (req, res) {
-  res.clearCookit("token", {
+  res.clearCookie("token", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",

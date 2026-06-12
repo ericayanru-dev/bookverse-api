@@ -25,8 +25,8 @@ const verifyToken = function (req, res, next) {
   } catch (e) {
     return res.status(401).json({
       success: false,
-      meessage: "Invalid or expired token.",
-      eerror: e.message,
+      message: "Invalid or expired token.",
+      error: e.message,
     });
   }
 };
