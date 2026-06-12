@@ -1,6 +1,10 @@
 const express = require("express");
 const { verifyToken } = require("../middleware/auth");
 const {
+  registerValidation,
+  loginValidation,
+} = require("../middleware/validation/user-validations");
+const {
   register,
   login,
   logout,
@@ -11,8 +15,8 @@ const {
 
 const router = express.Router();
 
-router.post("/register", register);
-router.post("/login", login);
+router.post("/register", registerValidation(), register);
+router.post("/login", loginValidation(), login);
 router.post("/logout", logout);
 router.get("/me", verifyToken, getMe);
 router.put("/:id", verifyToken, updateUser);
