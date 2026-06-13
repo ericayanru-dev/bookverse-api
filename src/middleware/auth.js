@@ -14,19 +14,20 @@ const verifyToken = function (req, res, next) {
   if (!token) {
     return res.status(401).json({
       success: false,
-      message: "Access denied. No token provided.",
+      message: "Access denied. No token provided. Login to access this resource.",
     });
   }
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
+    console.log("Decoded JWT payload:", decoded);
     next();
   } catch (e) {
     return res.status(401).json({
       success: false,
-      meessage: "Invalid or expired token.",
-      eerror: e.message,
+      message: "Invalid or expired token.",
+      error: e.message,
     });
   }
 };

@@ -17,7 +17,7 @@ const validate = (req, res, next) => {
 // GET /orders
 const getOrdersValidation = () => {
   return [
-    body("user")
+    param("id")
       .notEmpty()
       .withMessage("User ID is required")
       .isMongoId()
@@ -30,12 +30,6 @@ const getOrdersValidation = () => {
 // POST /orders
 const createOrderValidation = () => {
   return [
-    body("user")
-      .notEmpty()
-      .withMessage("User ID is required")
-      .isMongoId()
-      .withMessage("Invalid user ID"),
-
     body("items").isArray({ min: 1 }).withMessage("At least one order item is required"),
 
     body("items.*.book")

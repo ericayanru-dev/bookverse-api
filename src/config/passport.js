@@ -8,7 +8,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.Callback_URL,
+      callbackURL: process.env.CALLBACK_URL,
     },
 
     // Verify callback executed after Google auth succeeds
@@ -16,7 +16,7 @@ passport.use(
       try {
         const email = profile.emails?.[0]?.value;
         if (!email) {
-          return done(new Error("No email returned from Google.").null);
+          return done(new Error("No email returned from Google."), null);
         }
 
         // Check if user already exists with Google oauth creds
@@ -57,7 +57,7 @@ passport.use(
 
         return done(null, user);
       } catch (e) {
-        return (e, null);
+        return done(e, null);
       }
     }
   )
