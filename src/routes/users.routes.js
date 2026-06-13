@@ -3,6 +3,7 @@ const { verifyToken } = require("../middleware/auth");
 const {
   registerValidation,
   loginValidation,
+  deleteUserValidation,
 } = require("../middleware/validation/user-validations");
 const {
   register,
@@ -20,6 +21,6 @@ router.post("/login", loginValidation(), login);
 router.post("/logout", logout);
 router.get("/me", verifyToken, getMe);
 router.put("/:id", verifyToken, updateUser);
-router.delete("/:id", verifyToken, deleteUser);
+router.delete("/:id", verifyToken, deleteUserValidation(), deleteUser);
 
 module.exports = router;

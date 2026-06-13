@@ -1,4 +1,4 @@
-const { body, validationResult } = require("express-validator");
+const { body, param, validationResult } = require("express-validator");
 
 // Middleware to check validation results
 const validate = (req, res, next) => {
@@ -47,7 +47,20 @@ const loginValidation = () => {
   ];
 };
 
+// DELETE /users/:id
+const deleteUserValidation = () => {
+  return [
+    param("id")
+      .notEmpty()
+      .withMessage("User ID is required")
+      .isMongoId()
+      .withMessage("Invalid user ID"),
+    validate,
+  ];
+};
+
 module.exports = {
   registerValidation,
   loginValidation,
+  deleteUserValidation,
 };
