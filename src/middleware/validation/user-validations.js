@@ -55,6 +55,10 @@ const deleteUserValidation = () => {
       .withMessage("User ID is required")
       .isMongoId()
       .withMessage("Invalid user ID"),
+    validate,
+  ];
+};
+
 const updateUserRules = () => {
   return [
     body("name")
