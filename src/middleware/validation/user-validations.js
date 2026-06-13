@@ -1,35 +1,54 @@
 const { body, validationResult } = require("express-validator");
 
+// Middleware to check validation results
+const validate = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      success: false,
+      errors: errors.array(),
+    });
+  }
+  next();
+};
 
-const registerRules = [
-  body("name")
-    .trim()
-    .notEmpty().withMessage("Name is required.")
-    .isLength({ max: 100 }).withMessage("Name must be under 100 characters."),
+// POST /api/auth/register
+const registerValidation = () => {
+  return [
+    body("name").trim().notEmpty().withMessage("Name is required"),
+    body("email")
+      .trim()
+      .notEmpty()
+      .withMessage("Email is required")
+      .isEmail()
+      .withMessage("Must be a valid email address")
+      .normalizeEmail(),
+    body("password")
+      .notEmpty()
+      .withMessage("Password is required")
+      .isLength({ min: 6 })
+      .withMessage("Password must be at least 6 characters"),
+    validate,
+  ];
+};
 
-  body("email")
-    .trim()
-    .notEmpty().withMessage("Email is required.")
-    .isEmail().withMessage("Invalid email address.")
-    .normalizeEmail(),
+// POST /api/auth/login
+const loginValidation = () => {
+  return [
+    body("email")
+      .trim()
+      .notEmpty()
+      .withMessage("Email is required")
+      .isEmail()
+      .withMessage("Must be a valid email address")
+      .normalizeEmail(),
+    body("password").notEmpty().withMessage("Password is required"),
+    validate,
+  ];
+};
 
-  body("password")
-    .notEmpty().withMessage("Password is required.")
-    .isLength({ min: 6 }).withMessage("Password must be at least 6 characters."),
-];
-
-const loginRules = [
-  body("email")
-    .trim()
-    .notEmpty().withMessage("Email is required.")
-    .isEmail().withMessage("Invalid email address.")
-    .normalizeEmail(),
-
-  body("password")
-    .notEmpty().withMessage("Password is required."),
-];
-
-const updateUserRules = [
+const updateUserRules =  () => {
+  return [
   body("name")
     .optional()
     .trim()
@@ -101,23 +120,12 @@ const updateUserRules = [
     .isString()
     .withMessage("shippingAddress must be a string."),
   ////////////////////////////////////////
-];
-
-
-const validate = (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({
-      success: false,
-      errors: errors.array(),
-    });
-  }
-  next();
+    validate,
+]
 };
 
-
 module.exports = {
-  validateRegister: [...registerRules, validate],
-  validateLogin: [...loginRules, validate],
-  validateUpdateUser: [...updateUserRules, validate],
+  registerValidation,
+  loginValidation,
+  updateUserRules,
 };
