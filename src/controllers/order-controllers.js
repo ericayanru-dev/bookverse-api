@@ -4,7 +4,8 @@ require("../models/book");
 
 const getOrders = async (req, res) => {
   try {
-    const orders = await Order.find()
+    const userId = req.user.id;
+    const orders = await Order.find({ user: userId })
       .populate("user", "name email")
       .populate({ path: "items.book", select: "title price" })
       .sort({ createdAt: -1 });
@@ -25,6 +26,7 @@ const getOrders = async (req, res) => {
 
 const createOrder = async (req, res) => {
   try {
+    const user_id = req.user.id;
     const { items, totalAmount, shippingAddress } = req.body;
 
     // Check if items array is missing or empty
@@ -35,12 +37,11 @@ const createOrder = async (req, res) => {
       });
     }
 
-    const user = req.user.id;
     const cleanStatus = "pending";
 
     // Create document in database matching the nested object requirements
     const newOrder = await Order.create({
-      user: user,
+      user: user_id,
       items,
       totalAmount,
       shippingAddress,
