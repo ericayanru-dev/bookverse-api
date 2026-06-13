@@ -3,15 +3,11 @@ const { verifyToken } = require("../middleware/auth");
 const {
   registerValidation,
   loginValidation,
+  updateUserRules,
 } = require("../middleware/validation/user-validations");
-const {
-  register,
-  login,
-  logout,
-  getMe,
-  updateUser,
-  deleteUser,
-} = require("../controllers/users-controllers");
+const { register, login, logout, getMe } = require("../controllers/authController");
+const { updateUser, deleteUser } = require("../controllers/users-controllers");
+
 
 const router = express.Router();
 
