@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const { verifyToken } = require("../middleware/auth");
+
 const {
   getAllAuthors,
   getAuthorById,
@@ -21,15 +23,15 @@ const {
 router.get("/", getAuthorsValidation(), getAllAuthors);
 
 // GET /authors/:id
-router.get("/:id", getAuthorByIdValidation(), getAuthorById);
+router.get("/:id", verifyToken, getAuthorByIdValidation(), getAuthorById);
 
 // POST /authors
-router.post("/", createAuthorValidation(), createAuthor);
+router.post("/", verifyToken, createAuthorValidation(), createAuthor);
 
 // PUT /authors/:id
-router.put("/:id", updateAuthorValidation(), updateAuthor);
+router.put("/:id", verifyToken, updateAuthorValidation(), updateAuthor);
 
 // DELETE /authors/:id
-router.delete("/:id", deleteAuthorValidation(), deleteAuthor);
+router.delete("/:id", verifyToken, deleteAuthorValidation(), deleteAuthor);
 
 module.exports = router;
