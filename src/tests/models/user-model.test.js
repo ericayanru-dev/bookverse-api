@@ -4,9 +4,14 @@ require("dotenv").config();
 
 describe("User model", () => {
   beforeAll(async () => {
-    await mongoose.connect(process.env.MONGO_URI);
-    await User.deleteOne({ email: "john@example.com" });
-  }, 30000);
+    try {
+      await mongoose.connect(process.env.MONGO_URI);
+      await User.deleteOne({ email: "john@example.com" });
+    } catch (error) {
+      console.error("MongoDB connection failed:", error.message);
+      throw error;
+    }
+  }, 60000);
 
   afterAll(async () => {
     await mongoose.connection.close();
