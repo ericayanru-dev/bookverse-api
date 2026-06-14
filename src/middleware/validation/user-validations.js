@@ -1,4 +1,4 @@
-const { body, validationResult } = require("express-validator");
+const { body, param, validationResult } = require("express-validator");
 
 // Middleware to check validation results
 const validate = (req, res, next) => {
@@ -43,6 +43,18 @@ const loginValidation = () => {
       .withMessage("Must be a valid email address")
       .normalizeEmail(),
     body("password").notEmpty().withMessage("Password is required"),
+    validate,
+  ];
+};
+
+// DELETE /users/:id
+const deleteUserValidation = () => {
+  return [
+    param("id")
+      .notEmpty()
+      .withMessage("User ID is required")
+      .isMongoId()
+      .withMessage("Invalid user ID"),
     validate,
   ];
 };
@@ -123,5 +135,6 @@ const updateUserRules = () => {
 module.exports = {
   registerValidation,
   loginValidation,
+  deleteUserValidation,
   updateUserRules,
 };
