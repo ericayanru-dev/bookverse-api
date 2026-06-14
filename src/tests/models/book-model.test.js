@@ -4,9 +4,14 @@ require("dotenv").config();
 
 describe("Book Model", () => {
   beforeAll(async () => {
-    await mongoose.connect(process.env.MONGO_URI);
-    await Book.deleteOne({ isbn: "978-0743273565" });
-  }, 30000);
+    try {
+      await mongoose.connect(process.env.MONGO_URI);
+      await Book.deleteOne({ isbn: "978-0743273565" });
+    } catch (error) {
+      console.error("MongoDB connection failed:", error.message);
+      throw error;
+    }
+  }, 60000);
 
   afterAll(async () => {
     await mongoose.connection.close();
