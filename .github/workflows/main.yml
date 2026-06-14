@@ -26,6 +26,12 @@ jobs:
       - name: Run Linting
         run: npm run lint:check
 
+      - name: Run Tests
+        run: npm run test
+
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI_TEST }}
+
 
   # Extra protection for main branch
   check-source:
