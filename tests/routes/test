@@ -1,0 +1,74 @@
+  test("should return all books", async () => {
+    const postRes = await request(app).post("/books");
+    // Create test data
+    const book1 = await Book.create({
+      title: "Book One",
+      isbn: `1111-${timestamp}`,
+      price: 10,
+      stock: 5,
+      author: "60f7c9b8e4d5f2a3b4c5d6e7",
+    });
+
+    const book2 = await Book.create({
+      title: "Book Two",
+      isbn: `2222-${timestamp}`,
+      price: 15,
+      stock: 10,
+      author: "60f7c9b8e4d5f2a3b4c5d6e7",
+    });
+
+    testBookIds.push(book1._id, book2._id);
+
+    const res = await request(app).get("/books");
+
+    expect(res.statusCode).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
+    expect(res.body.length).toBeGreaterThanOrEqual(2);
+  });
+
+  // ==================== GET SINGLE BOOK ====================
+
+  test("should return a single book by ID", async () => {
+    const book = await Book.create({
+      title: "Test Book",
+      isbn: `999999-${timestamp}`,
+      price: 20,
+      stock: 8,
+      author: "60f7c9b8e4d5f2a3b4c5d6e7",
+    });
+    testBookIds.push(book._id);
+
+    const res = await request(app).get(`/books/${book._id}`);
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body.title).toBe("Test Book");
+    expect(res.body.isbn).toBe("999999");
+  });
+
+  test("should return 404 if book not found", async () => {
+    const fakeId = "60f7c9b8e4d5f2a3b4c5d6ff";
+    const res = await request(app).get(`/books/${fakeId}`);
+
+    expect(res.statusCode).toBe(404);
+    expect(res.body.message).toContain("not found");
+  });
+});
+
+
+  //======================POST NEW BOOKS===================
+  test("should create new books", async () => {
+    const newTitle = `Book Tow${timestamp}`;
+    const res = await request(app)
+      .post("/books")
+      .send({
+        title: newTitle,
+        isbn: `2222-${timestamp}`,
+        price: 15,
+        stock: 10,
+        author: "60f7c9b8e4d5f2a3b4c5d6e7",
+      })
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(res.status).toBe(201);
+    expect(res.body.title).toBe(newTitle);
+  });
