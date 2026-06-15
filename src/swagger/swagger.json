@@ -2,119 +2,132 @@
   "swagger": "2.0",
   "info": {
     "title": "BookVerse API",
-    "description": "Description",
+    "description": "REST API for managing books, authors, orders, and users for the BookVerse platform.",
     "version": "1.0.0"
   },
+  "tags": [
+    {
+      "name": "Authors",
+      "description": "Endpoints for managing authors"
+    },
+    {
+      "name": "Books",
+      "description": "Endpoints for managing books"
+    },
+    {
+      "name": "Orders",
+      "description": "Endpoints for managing orders"
+    },
+    {
+      "name": "Users",
+      "description": "User authentication and account management"
+    },
+    {
+      "name": "Auth",
+      "description": "Google OAuth authentication"
+    }
+  ],
   "paths": {
     "/health": {
       "get": {
-        "description": "",
+        "summary": "Health check",
+        "description": "Returns the current status of the API.",
         "responses": {
-          "200": {
-            "description": "OK"
-          }
+          "200": { "description": "API is running" }
         }
       }
     },
     "/books/": {
       "get": {
-        "description": "",
+        "tags": ["Books"],
+        "summary": "Get all books",
+        "description": "Returns a list of all books in the system, populated with author name.",
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "A list of books retrieved successfully" },
+          "500": { "description": "Internal server error" }
         }
       },
       "post": {
-        "description": "",
+        "tags": ["Books"],
+        "summary": "Create a new book",
+        "description": "Adds a new book to the catalog. Admin only.",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
+              "required": ["title", "isbn", "price", "stock", "author"],
               "properties": {
                 "title": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "One Hundred Years of Solitude"
                 },
-                "isbn": {
-                  "example": "any"
-                },
+                "isbn": { "type": "string", "example": "978-0-06-088328-7" },
                 "description": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "A landmark novel of magical realism."
                 },
-                "price": {
-                  "example": "any"
-                },
-                "stock": {
-                  "example": "any"
-                },
-                "genre": {
-                  "example": "any"
-                },
+                "price": { "type": "number", "example": 14.99 },
+                "stock": { "type": "integer", "example": 100 },
+                "genre": { "type": "string", "example": "magical realism" },
                 "author": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "64a1b2c3d4e5f6a7b8c9d0e1"
                 },
-                "publishedYear": {
-                  "example": "any"
-                },
+                "publishedYear": { "type": "integer", "example": 1967 },
                 "coverImage": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "https://example.com/cover.jpg"
                 }
               }
             }
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
+          "201": { "description": "Book created successfully" },
           "400": {
-            "description": "Bad Request"
+            "description": "Validation error - missing or invalid fields"
           },
-          "401": {
-            "description": "Unauthorized"
-          }
+          "401": { "description": "Unauthorized" }
         }
       }
     },
     "/books/{id}": {
       "get": {
-        "description": "",
+        "tags": ["Books"],
+        "summary": "Get book by ID",
+        "description": "Returns a single book by its MongoDB ID, populated with author name.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "MongoDB ObjectId of the book",
+            "example": "64a1b2c3d4e5f6a7b8c9d0e1"
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "Book retrieved successfully" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "Book not found" },
+          "500": { "description": "Internal server error" }
         }
       },
       "put": {
-        "description": "",
+        "tags": ["Books"],
+        "summary": "Update a book",
+        "description": "Updates one or more fields of an existing book. Admin only.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "MongoDB ObjectId of the book",
+            "example": "64a1b2c3d4e5f6a7b8c9d0e1"
           },
           {
             "name": "body",
@@ -123,167 +136,154 @@
               "type": "object",
               "properties": {
                 "title": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "One Hundred Years of Solitude"
                 },
-                "isbn": {
-                  "example": "any"
-                },
+                "isbn": { "type": "string", "example": "978-0-06-088328-7" },
                 "description": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "A landmark novel of magical realism."
                 },
-                "price": {
-                  "example": "any"
-                },
-                "stock": {
-                  "example": "any"
-                },
-                "genre": {
-                  "example": "any"
-                },
+                "price": { "type": "number", "example": 14.99 },
+                "stock": { "type": "integer", "example": 100 },
+                "genre": { "type": "string", "example": "magical realism" },
                 "author": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "64a1b2c3d4e5f6a7b8c9d0e1"
                 },
-                "publishedYear": {
-                  "example": "any"
-                },
+                "publishedYear": { "type": "integer", "example": 1967 },
                 "coverImage": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "https://example.com/cover.jpg"
                 }
               }
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          }
+          "200": { "description": "Book updated successfully" },
+          "400": { "description": "Validation error - invalid fields" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "Book not found" }
         }
       },
       "delete": {
-        "description": "",
+        "tags": ["Books"],
+        "summary": "Delete a book",
+        "description": "Removes a book from the catalog. Admin only.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "MongoDB ObjectId of the book",
+            "example": "64a1b2c3d4e5f6a7b8c9d0e1"
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "Book deleted successfully" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "Book not found" },
+          "500": { "description": "Internal server error" }
         }
       }
     },
     "/authors/": {
       "get": {
-        "description": "",
+        "tags": ["Authors"],
+        "summary": "Get all authors",
+        "description": "Returns a list of all authors in the system, including their associated book references.",
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "A list of authors retrieved successfully" },
+          "500": { "description": "Internal server error" }
         }
       },
       "post": {
-        "description": "",
+        "tags": ["Authors"],
+        "summary": "Create a new author",
+        "description": "Adds a new author to the database. Only the name field is required. Admin only.",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
+              "required": ["name"],
               "properties": {
                 "name": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Gabriel Garcia Marquez"
                 },
                 "bio": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Colombian novelist and Nobel Prize winner"
                 },
                 "birthDate": {
-                  "example": "any"
+                  "type": "string",
+                  "format": "date",
+                  "example": "1927-03-06"
                 },
-                "nationality": {
-                  "example": "any"
-                },
+                "nationality": { "type": "string", "example": "Colombian" },
                 "genres": {
-                  "example": "any"
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "example": ["magical realism", "fiction"]
                 },
                 "books": {
-                  "example": "any"
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "example": ["64a1b2c3d4e5f6a7b8c9d0e1"]
                 }
               }
             }
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
+          "201": { "description": "Author created successfully" },
           "400": {
-            "description": "Bad Request"
+            "description": "Validation error - missing or invalid fields"
           },
-          "401": {
-            "description": "Unauthorized"
-          }
+          "401": { "description": "Unauthorized" }
         }
       }
     },
     "/authors/{id}": {
       "get": {
-        "description": "",
+        "tags": ["Authors"],
+        "summary": "Get author by ID",
+        "description": "Returns the biography and cross-referenced book identifiers for a specific author.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "MongoDB ObjectId of the author",
+            "example": "64a1b2c3d4e5f6a7b8c9d0e1"
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "Author retrieved successfully" },
+          "400": { "description": "Invalid author ID format" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "Author not found" },
+          "500": { "description": "Internal server error" }
         }
       },
       "put": {
-        "description": "",
+        "tags": ["Authors"],
+        "summary": "Update an author",
+        "description": "Updates biographical details or name parameters for an existing author. Admin only.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "MongoDB ObjectId of the author",
+            "example": "64a1b2c3d4e5f6a7b8c9d0e1"
           },
           {
             "name": "body",
@@ -292,302 +292,252 @@
               "type": "object",
               "properties": {
                 "name": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Gabriel Garcia Marquez"
                 },
                 "bio": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Colombian novelist, screenwriter and Nobel Prize winner in Literature"
                 },
                 "birthDate": {
-                  "example": "any"
+                  "type": "string",
+                  "format": "date",
+                  "example": "1927-03-06"
                 },
-                "nationality": {
-                  "example": "any"
-                },
+                "nationality": { "type": "string", "example": "Colombian" },
                 "genres": {
-                  "example": "any"
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "example": ["magical realism", "fiction"]
                 },
                 "books": {
-                  "example": "any"
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "example": ["64a1b2c3d4e5f6a7b8c9d0e1"]
                 }
               }
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
+          "200": { "description": "Author updated successfully" },
           "400": {
-            "description": "Bad Request"
+            "description": "Validation error - invalid fields or ID format"
           },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          }
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "Author not found" },
+          "500": { "description": "Internal server error" }
         }
       },
       "delete": {
-        "description": "",
+        "tags": ["Authors"],
+        "summary": "Delete an author",
+        "description": "Removes an author document from the database catalog. Admin only.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "MongoDB ObjectId of the author",
+            "example": "64a1b2c3d4e5f6a7b8c9d0e1"
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/orders/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "Author deleted successfully" },
+          "400": { "description": "Invalid author ID format" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "Author not found" },
+          "500": { "description": "Internal server error" }
         }
       }
     },
     "/orders/": {
       "post": {
-        "description": "",
+        "tags": ["Orders"],
+        "summary": "Create a new order",
+        "description": "Places a new order for the authenticated user.",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
+              "required": ["items", "totalAmount"],
               "properties": {
                 "items": {
-                  "example": "any"
+                  "type": "array",
+                  "example": [
+                    {
+                      "book": "64a1b2c3d4e5f6a7b8c9d0e1",
+                      "quantity": 2,
+                      "price": 14.99
+                    }
+                  ]
                 },
-                "totalAmount": {
-                  "example": "any"
-                },
+                "totalAmount": { "type": "number", "example": 29.98 },
                 "shippingAddress": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "123 Main St, New York, NY 10001"
                 }
               }
             }
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
+          "201": { "description": "Order created successfully" },
           "400": {
-            "description": "Bad Request"
+            "description": "Validation error - missing or invalid fields"
           },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "401": { "description": "Unauthorized" },
+          "500": { "description": "Internal server error" }
         }
       }
     },
-    "/api/auth/google": {
+    "/orders/{id}": {
       "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
+        "tags": ["Orders"],
+        "summary": "Get order by ID",
+        "description": "Returns a single order by its MongoDB ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "MongoDB ObjectId of the order",
+            "example": "64a1b2c3d4e5f6a7b8c9d0e1"
           }
+        ],
+        "responses": {
+          "200": { "description": "Order retrieved successfully" },
+          "401": { "description": "Unauthorized" },
+          "500": { "description": "Internal server error" }
         }
-      }
-    },
-    "/api/auth/google/callback": {
-      "get": {
-        "description": "",
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
+      },
+      "delete": {
+        "tags": ["Orders"],
+        "summary": "Delete an order",
+        "description": "Removes an order from the system.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "MongoDB ObjectId of the order",
+            "example": "64a1b2c3d4e5f6a7b8c9d0e1"
           }
-        }
-      }
-    },
-    "/api/auth/google/failure": {
-      "get": {
-        "description": "",
+        ],
         "responses": {
-          "401": {
-            "description": "Unauthorized"
-          }
+          "200": { "description": "Order deleted successfully" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "Order not found" },
+          "500": { "description": "Internal server error" }
         }
       }
     },
     "/api/users/register": {
       "post": {
-        "description": "",
+        "tags": ["Users"],
+        "summary": "Register a new user",
+        "description": "Creates a new local user account and returns a JWT cookie.",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
+              "required": ["name", "email", "password"],
               "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                }
+                "name": { "type": "string", "example": "John Doe" },
+                "email": { "type": "string", "example": "johndoe@email.com" },
+                "password": { "type": "string", "example": "securepassword123" }
               }
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User registered and logged in successfully"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Validation error - missing or invalid fields"
           },
-          "409": {
-            "description": "Conflict"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "409": { "description": "Email already in use" },
+          "500": { "description": "Internal server error" }
         }
       }
     },
     "/api/users/login": {
       "post": {
-        "description": "",
+        "tags": ["Users"],
+        "summary": "Login",
+        "description": "Authenticates a local user and returns a JWT cookie.",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
+              "required": ["email", "password"],
               "properties": {
-                "email": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                }
+                "email": { "type": "string", "example": "johndoe@email.com" },
+                "password": { "type": "string", "example": "securepassword123" }
               }
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
+          "200": { "description": "Logged in successfully" },
           "400": {
-            "description": "Bad Request"
+            "description": "Validation error - missing or invalid fields"
           },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "401": { "description": "Invalid credentials" },
+          "500": { "description": "Internal server error" }
         }
       }
     },
     "/api/users/logout": {
       "post": {
-        "description": "",
+        "tags": ["Users"],
+        "summary": "Logout",
+        "description": "Clears the JWT cookie and logs the user out.",
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
+          "200": { "description": "Logged out successfully" },
+          "401": { "description": "Unauthorized" }
         }
       }
     },
     "/api/users/me": {
       "get": {
-        "description": "",
+        "tags": ["Users"],
+        "summary": "Get current user",
+        "description": "Returns the profile of the currently authenticated user. Requires a valid JWT cookie.",
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "User profile retrieved successfully" },
+          "401": { "description": "Unauthorized - no token provided" },
+          "404": { "description": "User not found" },
+          "500": { "description": "Internal server error" }
         }
       }
     },
     "/api/users/{id}": {
       "put": {
-        "description": "",
+        "tags": ["Users"],
+        "summary": "Update user",
+        "description": "Updates profile fields for the authenticated user.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "MongoDB ObjectId of the user",
+            "example": "64a1b2c3d4e5f6a7b8c9d0e1"
           },
           {
             "name": "body",
@@ -595,63 +545,78 @@
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "phone": {
-                  "example": "any"
-                },
+                "name": { "type": "string", "example": "John Doe" },
+                "email": { "type": "string", "example": "johndoe@email.com" },
+                "phone": { "type": "string", "example": "+1234567890" },
                 "avatar": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "https://example.com/avatar.jpg"
                 },
                 "shippingAddress": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "123 Main St, New York, NY 10001"
                 }
               }
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          }
+          "200": { "description": "User updated successfully" },
+          "400": { "description": "Validation error - invalid fields" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "User not found" }
         }
       },
       "delete": {
-        "description": "",
+        "tags": ["Users"],
+        "summary": "Delete user",
+        "description": "Permanently removes a user account from the system.",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "MongoDB ObjectId of the user",
+            "example": "64a1b2c3d4e5f6a7b8c9d0e1"
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "User deleted successfully" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "User not found" },
+          "500": { "description": "Internal server error" }
+        }
+      }
+    },
+    "/api/auth/google": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Google OAuth login",
+        "description": "Redirects the user to Google for OAuth authentication.",
+        "responses": {
+          "302": { "description": "Redirects to Google login page" }
+        }
+      }
+    },
+    "/api/auth/google/callback": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Google OAuth callback",
+        "description": "Handles the callback from Google after authentication. Issues a JWT cookie on success.",
+        "responses": {
+          "302": { "description": "Redirects to frontend on success" },
+          "401": { "description": "Google authentication failed" }
+        }
+      }
+    },
+    "/api/auth/google/failure": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Google OAuth failure",
+        "description": "Called when Google authentication fails.",
+        "responses": {
+          "401": { "description": "Google authentication failed" }
         }
       }
     }
