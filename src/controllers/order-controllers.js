@@ -9,6 +9,7 @@ const getOrders = async (req, res) => {
       .populate("user", "name email")
       .populate({ path: "items.book", select: "title price" })
       .sort({ createdAt: -1 });
+    console.log(orders);
 
     return res.status(200).json({
       success: true,
