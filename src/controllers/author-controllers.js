@@ -36,6 +36,7 @@ const createAuthor = async (req, res) => {
 
     const author = new Author(body);
     const savedAuthor = await author.save();
+    console.log(savedAuthor);
     res.status(201).json(savedAuthor);
   } catch (error) {
     res.status(400).json({ message: error.message });
