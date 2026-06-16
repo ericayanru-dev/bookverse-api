@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Book = require("../../models/book");
+const Book = require("../../src/models/book");
 require("dotenv").config();
 
 describe("Book Model", () => {
